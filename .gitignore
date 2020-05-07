@@ -15,7 +15,8 @@
 ### Folders
 .bin/*
 .obj/*
-.properties/*
+bin/
+obj/
 
 # User-specific files
 *.rsuser
