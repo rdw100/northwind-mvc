@@ -21,7 +21,13 @@ namespace NorthwindMVC.Controllers
         // GET: Customer
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Customers.ToListAsync());
+            return View(await _context.Customers
+                                      .Include(customer => customer.Orders)
+                                      .ThenInclude(order => order.OrderDetails)
+                                      .ThenInclude(orderdetails => orderdetails.Product)
+                                      .AsNoTracking()
+                                      .ToListAsync()
+                        );
         }
 
         // GET: Customer/Details/5
@@ -34,6 +40,28 @@ namespace NorthwindMVC.Controllers
 
             var customers = await _context.Customers
                 .FirstOrDefaultAsync(m => m.CustomerId == id);
+            if (customers == null)
+            {
+                return NotFound();
+            }
+
+            return View(customers);
+        }
+
+                // GET: Customer/OrderDetails/ALFKI
+        public async Task<IActionResult> OrderDetails(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var customers = await _context.Customers
+                                          .Include(customer => customer.Orders)
+                                          .ThenInclude(order => order.OrderDetails)
+                                          .ThenInclude(orderdetails => orderdetails.Product)
+                                          .AsNoTracking()
+                                          .FirstOrDefaultAsync(m => m.CustomerId == id);
             if (customers == null)
             {
                 return NotFound();

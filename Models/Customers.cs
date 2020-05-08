@@ -22,6 +22,6 @@ namespace NorthwindMVC.Models
         public string Phone { get; set; }
         public string Fax { get; set; }
 
-        public virtual ICollection<Orders> Orders { get; set; }
+        public virtual ICollection<Orders> Orders { get; set; }        
     }
 }

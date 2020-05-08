@@ -1,10 +1,10 @@
 @model IEnumerable<NorthwindMVC.Models.Customers>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Customers";
 }
 
-<h1>Index</h1>
+<h1>Customers</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -16,33 +16,14 @@
                 @Html.DisplayNameFor(model => model.CompanyName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ContactName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ContactTitle)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Address)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.City)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Region)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PostalCode)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Country)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Phone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Fax)
-            </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -52,35 +33,34 @@
                 @Html.DisplayFor(modelItem => item.CompanyName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ContactName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ContactTitle)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.City)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Region)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostalCode)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Country)
             </td>
+@*          
             <td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fax)
-            </td>
+                @{
+                    foreach (var orders in item.Orders)
+                    {
+                        @: @orders.CustomerId <br />
+
+                        @foreach (var orderDetails in orders.OrderDetails)
+                        {
+                            @:      @orderDetails.OrderId @orderDetails.Product.ProductName <br />
+                        } 
+                        <br />
+                    }
+                }
+            </td> 
+*@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.CustomerId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.CustomerId">Details</a> |
+                <a asp-action="OrderDetails" asp-route-id="@item.CustomerId">Orders</a> |
                 <a asp-action="Delete" asp-route-id="@item.CustomerId">Delete</a>
             </td>
         </tr>
